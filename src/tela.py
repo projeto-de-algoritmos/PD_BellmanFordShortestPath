@@ -113,10 +113,10 @@ def colright(y, x, color):
 
 G = nx.grid_2d_graph(20,20)
 #Graph of the mst(edge = 1 means it connects the two nodes)
-GMST = nx.grid_2d_graph(20,20)
+GMAZE = nx.grid_2d_graph(20,20)
 
-for (x, y) in GMST.edges():
-    GMST.edges[x, y]['weight'] = 0
+for (x, y) in GMAZE.edges():
+    GMAZE.edges[x, y]['weight'] = 0
 
 def randUnvisitedNeighbor(vertex):
     unvNeigh = []
@@ -178,6 +178,7 @@ def randomDFS(vertex):
 
     while nextVertex:
         moveCell(vertex, nextVertex)
+        GMAZE.edges[vertex, nextVertex]['weight'] = 1
         randomDFS(nextVertex)
         nextVertex = randUnvisitedNeighbor(vertex)
     
@@ -214,7 +215,7 @@ def Prim():
                     lesser = a[20*x + y]
                     lesserxy = (x, y)
             moveCell(u[1], lesserxy)
-            GMST.edges[u[1], lesserxy]['weight'] = 1
+            GMAZE.edges[u[1], lesserxy]['weight'] = 1
             temp = []
 
         rep = 1
@@ -243,7 +244,7 @@ def DCShortestPath(N, xo, yo, xd, yd, xf, yf, contr, distance=0, curCol = RED):
     if xo < 0 or yo < 0:
         return 400
     
-    if (xo != xd or yo != yd) and GMST.edges[(xo, yo),(xd, yd)]['weight'] == 0:
+    if (xo != xd or yo != yd) and GMAZE.edges[(xo, yo),(xd, yd)]['weight'] == 0:
         return 400
 
     else:
@@ -281,6 +282,9 @@ def DCShortestPath(N, xo, yo, xd, yd, xf, yf, contr, distance=0, curCol = RED):
             if threemark != None and threemark <400:
                 moveCellColor((xd, yd),(xo, yo), BLUE)
             return threemark
+
+#================================================================================================
+#Shortest Path BellmanFord
 
 def createMaze():
     startVertex = (0, 0)
