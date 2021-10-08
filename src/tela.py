@@ -177,8 +177,21 @@ def randomDFS(vertex):
     nextVertex = randUnvisitedNeighbor(vertex)
 
     while nextVertex:
-        moveCell(vertex, nextVertex)
-        GMAZE.edges[vertex, nextVertex]['weight'] = 1
+        mazecolorint = random.randint(0, 19)
+        if mazecolorint < 19:
+            mazecolorint = 1
+        if mazecolorint == 19:
+            mazecolorint = random.randint(-5,5)
+            if mazecolorint == 0:
+                mazecolorint = 1
+        
+        GMAZE.edges[vertex, nextVertex]['weight'] = mazecolorint
+        mazecolor = GREEN #Normal path
+        if mazecolorint < 1:
+            mazecolor = BLUE #Obstacle
+        if mazecolorint > 1:
+            mazecolor = RED #Shortcuts
+        moveCellColor(vertex, nextVertex, mazecolor)
         randomDFS(nextVertex)
         nextVertex = randUnvisitedNeighbor(vertex)
     
@@ -214,8 +227,21 @@ def Prim():
                 if lesser < a[20*x + y]:
                     lesser = a[20*x + y]
                     lesserxy = (x, y)
-            moveCell(u[1], lesserxy)
-            GMAZE.edges[u[1], lesserxy]['weight'] = 1
+            mazecolorint = random.randint(0, 19)
+            if mazecolorint < 19:
+                mazecolorint = 1
+            if mazecolorint == 19:
+                mazecolorint = random.randint(-5,5)
+                if mazecolorint == 0:
+                    mazecolorint = 1
+            
+            GMAZE.edges[u[1], lesserxy]['weight'] = mazecolorint
+            mazecolor = GREEN #Normal path
+            if mazecolorint < 1:
+                mazecolor = BLUE #Obstacle
+            if mazecolorint > 1:
+                mazecolor = RED #Shortcuts
+            moveCellColor(u[1], lesserxy, mazecolor)
             temp = []
 
         rep = 1
