@@ -8,6 +8,9 @@ import time
 
 import heapq
 
+import operator
+
+
 try:
     pygame.init()
 except:
@@ -139,17 +142,17 @@ def moveCell(vertex, nextVertex):
 
     if x == x2:
         if y < y2:
-            time.sleep(.05)
+            #time.sleep(.05)
             right(x, y)
         else:
-            time.sleep(.05)
+            #time.sleep(.05)
             left(x, y)
     else:
         if x < x2:
-            time.sleep(.05)
+            #time.sleep(.05)
             down(x, y)
         else:
-            time.sleep(.05)
+            #time.sleep(.05)
             up(x, y)
 
 def moveCellColor(vertex, nextVertex, color):
@@ -158,17 +161,17 @@ def moveCellColor(vertex, nextVertex, color):
 
     if x == x2:
         if y < y2:
-            time.sleep(.05)
+            #time.sleep(.05)
             colright(x, y, color)
         else:
-            time.sleep(.05)
+            #time.sleep(.05)
             colleft(x, y, color)
     else:
         if x < x2:
-            time.sleep(.05)
+            #time.sleep(.05)
             coldown(x, y, color)
         else:
-            time.sleep(.05)
+            #time.sleep(.05)
             colup(x, y, color)
 
 #Instead of iterating through the neigbors it chooses one randomly
@@ -187,15 +190,19 @@ def randomDFS(vertex):
         
         GMAZE.edges[vertex, nextVertex]['weight'] = mazecolorint
         mazecolor = GREEN #Normal path
-        if mazecolorint < 1:
-            mazecolor = BLUE #Obstacle
-        if mazecolorint > 1:
-            mazecolor = RED #Shortcuts
         moveCellColor(vertex, nextVertex, mazecolor)
         randomDFS(nextVertex)
         nextVertex = randUnvisitedNeighbor(vertex)
     
-#MST MAZE
+#Shortcuts and Obstacles print
+def printShOb():
+    for (u, v) in GMAZE.edges():
+        if GMAZE.edges[u, v]['weight'] < 1 and GMAZE.edges[u, v]['weight'] != 0 :
+                pygame.draw.circle(tela, BLUE, [20*(u[1]+v[1])/2 + 30, 20*(u[0]+v[0])/2 + 30], 5) #Obstacle
+        if GMAZE.edges[u, v]['weight'] > 1 and GMAZE.edges[u, v]['weight'] != 0:
+                pygame.draw.circle(tela, RED, [20*(u[1]+v[1])/2 + 30, 20*(u[0]+v[0])/2 + 30], 5) #Shortcuts
+        
+#MST MAZE////
 def randomEdgesWeight():
     for (u, v) in G.edges():
         G.edges[u, v]['weight'] = random.randint(0,100)
@@ -237,10 +244,6 @@ def Prim():
             
             GMAZE.edges[u[1], lesserxy]['weight'] = mazecolorint
             mazecolor = GREEN #Normal path
-            if mazecolorint < 1:
-                mazecolor = BLUE #Obstacle
-            if mazecolorint > 1:
-                mazecolor = RED #Shortcuts
             moveCellColor(u[1], lesserxy, mazecolor)
             temp = []
 
@@ -320,18 +323,8 @@ build_grid(40, 0, 20)
 #createMaze()
 randomEdgesWeight()
 Prim()
+printShOb()
 
-distance = 0
-short = DCShortestPath(20, 0, 0, 0, 0, 19, 19, -1, distance)
-print(short)
-
-pygame.font.init() # you have to call this at the start, 
-                   # if you want to use this module.
-myfont = pygame.font.SysFont('Comic Sans MS', 25)
-
-textsurface = myfont.render('O menor caminho entre 0,0 e 19,19 passa por ' + str(short) + ' Nós', 1, (255, 0, 255))
-
-tela.blit(textsurface,(2,500))
 
 
 sair = True
