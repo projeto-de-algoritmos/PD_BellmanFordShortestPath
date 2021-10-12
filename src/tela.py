@@ -193,6 +193,19 @@ def randomDFS(vertex):
         moveCellColor(vertex, nextVertex, mazecolor)
         randomDFS(nextVertex)
         nextVertex = randUnvisitedNeighbor(vertex)
+
+def addLoopsToMaze():
+    count = 0
+    ant = -1
+    for (u, v) in GMAZE.edges():
+        if GMAZE.edges[u, v]['weight'] != 0:
+            if ant != u:
+                count = 0
+            count = count + 1
+            ant = u
+            if count == 3 and random.randint(0,19)==19:
+                count = 0
+                GMAZE.edges[u, v]['weight'] = 1
     
 #Shortcuts and Obstacles print
 def printShOb():
@@ -315,6 +328,7 @@ def DCShortestPath(N, xo, yo, xd, yd, xf, yf, contr, distance=0, curCol = RED):
 #================================================================================================
 #Shortest Path BellmanFord
 
+
 def createMaze():
     startVertex = (0, 0)
     randomDFS(startVertex)
@@ -323,6 +337,7 @@ build_grid(40, 0, 20)
 #createMaze()
 randomEdgesWeight()
 Prim()
+addLoopsToMaze()
 printShOb()
 
 
