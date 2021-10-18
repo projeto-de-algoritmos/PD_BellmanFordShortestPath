@@ -117,9 +117,14 @@ def colright(y, x, color):
 G = nx.grid_2d_graph(20,20)
 #Graph of the mst(edge = 1 means it connects the two nodes)
 GMAZE = nx.grid_2d_graph(20,20)
+#GMAZED exists to stop negative loops on bellmanford alg(happened when it was GMAZE, a undirected graph)
+GMAZED = GMAZE.to_directed()
+
 
 for (x, y) in GMAZE.edges():
     GMAZE.edges[x, y]['weight'] = 0
+    GMAZED.edges[x, y]['weight'] = 0
+    GMAZED.edges[y, x]['weight'] = 0
 
 def randUnvisitedNeighbor(vertex):
     unvNeigh = []
@@ -161,17 +166,17 @@ def moveCellColor(vertex, nextVertex, color):
 
     if x == x2:
         if y < y2:
-            time.sleep(.05)
+            time.sleep(.15)
             colright(x, y, color)
         else:
-            time.sleep(.05)
+            time.sleep(.15)
             colleft(x, y, color)
     else:
         if x < x2:
-            time.sleep(.05)
+            time.sleep(.15)
             coldown(x, y, color)
         else:
-            time.sleep(.05)
+            time.sleep(.15)
             colup(x, y, color)
 
 #Instead of iterating through the neigbors it chooses one randomly
@@ -251,13 +256,18 @@ def Prim():
             if mazecolorint < 19:
                 mazecolorint = 1
             if mazecolorint == 19:
-                mazecolorint = random.randint(-1,5)
+                mazecolorint = random.randint(-5,5)
                 if mazecolorint == 0:
                     mazecolorint = 1
-            
+            #GMAZED exists to stop negative loops on bellmanford alg(happened when it was GMAZE, a undirected graph)
             GMAZE.edges[u[1], lesserxy]['weight'] = mazecolorint
+            GMAZED.edges[u[1], lesserxy]['weight'] = mazecolorint
+            if mazecolorint < 0:
+                GMAZED.edges[lesserxy, u[1]]['weight'] = -mazecolorint
+            else:
+                GMAZED.edges[lesserxy, u[1]]['weight'] = mazecolorint
             mazecolor = GREEN #Normal path
-            moveCellColor(u[1], lesserxy, mazecolor)
+            moveCell(u[1], lesserxy)
             temp = []
 
         rep = 1
@@ -328,21 +338,21 @@ def DCShortestPath(N, xo, yo, xd, yd, xf, yf, contr, distance=0, curCol = RED):
 #================================================================================================
 #Shortest Path BellmanFord
 def PDBellmanFord(t):
-    m = [None] * GMAZE.number_of_nodes()
-    sucessor = [None] * GMAZE.number_of_nodes()
+    m = [None] * GMAZED.number_of_nodes()
+    sucessor = [None] * GMAZED.number_of_nodes()
     valch= 0
-    for x in GMAZE.nodes:
+    for x in GMAZED.nodes:
         m[x[0]*20 + x[1]] = 999
         sucessor[x[0]*20 + x[1]] = 0
 
     m[t[0]*20 + t[1]] = 0
 
-    for i in range(1 ,GMAZE.number_of_edges()):
+    for i in range(1 ,GMAZED.number_of_edges()):
         for x in GMAZE.nodes():
             for y in GMAZE.adj[x]:
-                if GMAZE.edges[x, y]['weight'] != 0:
-                    if m[x[0]*20 + x[1]] > m[y[0]*20 + y[1]] + GMAZE.edges[x, y]['weight']:
-                        m[x[0]*20 + x[1]] = m[y[0]*20 + y[1]] + GMAZE.edges[x, y]['weight']
+                if GMAZED.edges[x, y]['weight'] != 0:
+                    if m[x[0]*20 + x[1]] > m[y[0]*20 + y[1]] + GMAZED.edges[x, y]['weight']:
+                        m[x[0]*20 + x[1]] = m[y[0]*20 + y[1]] + GMAZED.edges[x, y]['weight']
                         sucessor[x[0]*20 + x[1]] = y
                         valch = 1
         
@@ -361,9 +371,6 @@ def PDBellmanFord(t):
         y1 = y
         if x == 19  and y == 19:
             break
-        
-
-
 
 def createMaze():
     startVertex = (0, 0)
