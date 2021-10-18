@@ -22,7 +22,7 @@ HEIGHT = 600
 FPS = 30
 
 tela = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption ("MazegenPRIM-DCShortestPath")
+pygame.display.set_caption ("MazegenPRIM-PD_BellmanFordShortestPath")
 
 
 # Define colours
