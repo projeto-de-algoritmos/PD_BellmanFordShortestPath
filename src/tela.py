@@ -370,7 +370,7 @@ def PDBellmanFord(s, t):
         x1 = x
         y1 = y
         if (x, y) == t:
-            return i
+            return (i, m[s[0]*20 + s[1]])
 
 def createMaze():
     startVertex = (0, 0)
@@ -386,9 +386,9 @@ short = PDBellmanFord((0, 0),(19,19))
 
 pygame.font.init() # you have to call this at the start, 
                    # if you want to use this module.
-myfont = pygame.font.SysFont('Comic Sans MS', 25)
+myfont = pygame.font.SysFont('Comic Sans MS', 22)
 
-textsurface = myfont.render('O menor caminho entre 0,0 e 19,19 passa por ' + str(short) + ' Nós', 1, (255, 0, 255))
+textsurface = myfont.render('O menor caminho entre 0,0 e 19,19 passa por ' + str(short[0]) + ' Nós com peso ' + str(short[1]), 1, (255, 0, 255))
 
 tela.blit(textsurface,(2,500))
 
