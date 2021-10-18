@@ -337,12 +337,12 @@ def DCShortestPath(N, xo, yo, xd, yd, xf, yf, contr, distance=0, curCol = RED):
 
 #================================================================================================
 #Shortest Path BellmanFord
-def PDBellmanFord(t):
+def PDBellmanFord(s, t):
     m = [None] * GMAZED.number_of_nodes()
     sucessor = [None] * GMAZED.number_of_nodes()
     valch= 0
     for x in GMAZED.nodes:
-        m[x[0]*20 + x[1]] = 999
+        m[x[0]*20 + x[1]] = 9999
         sucessor[x[0]*20 + x[1]] = 0
 
     m[t[0]*20 + t[1]] = 0
@@ -361,15 +361,14 @@ def PDBellmanFord(t):
         else:
             break
     
-    x1 = 0
-    y1 = 0
+    (x1, y1) = s
     while 1:
         (x, y) = sucessor[x1*20 + y1]
         print((x, y))
         moveCellColor((x1, y1), (x, y), RED)
         x1 = x
         y1 = y
-        if x == 19  and y == 19:
+        if (x, y) == t:
             break
 
 def createMaze():
@@ -382,7 +381,7 @@ randomEdgesWeight()
 Prim()
 addLoopsToMaze()
 printShOb()
-PDBellmanFord((19,19))
+PDBellmanFord((0, 0),(19,19))
 
 
 
