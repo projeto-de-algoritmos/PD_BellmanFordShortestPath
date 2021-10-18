@@ -362,14 +362,15 @@ def PDBellmanFord(s, t):
             break
     
     (x1, y1) = s
-    while 1:
+    i = 1
+    while i> 0:
+        i = i+1
         (x, y) = sucessor[x1*20 + y1]
-        print((x, y))
         moveCellColor((x1, y1), (x, y), RED)
         x1 = x
         y1 = y
         if (x, y) == t:
-            break
+            return i
 
 def createMaze():
     startVertex = (0, 0)
@@ -381,9 +382,15 @@ randomEdgesWeight()
 Prim()
 addLoopsToMaze()
 printShOb()
-PDBellmanFord((0, 0),(19,19))
+short = PDBellmanFord((0, 0),(19,19))
 
+pygame.font.init() # you have to call this at the start, 
+                   # if you want to use this module.
+myfont = pygame.font.SysFont('Comic Sans MS', 25)
 
+textsurface = myfont.render('O menor caminho entre 0,0 e 19,19 passa por ' + str(short) + ' Nós', 1, (255, 0, 255))
+
+tela.blit(textsurface,(2,500))
 
 sair = True
 
