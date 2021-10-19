@@ -373,7 +373,7 @@ def PDBellmanFord(s, t):
 
     m[t[0]*20 + t[1]] = 0
 
-    for i in range(1 ,GMAZED.number_of_edges()):
+    for i in range(1 ,GMAZED.number_of_nodes()):
         for x in GMAZE.nodes():
             for y in GMAZE.adj[x]:
                 if GMAZED.edges[x, y]['weight'] != 0:
@@ -422,7 +422,7 @@ pygame.font.init() # you have to call this at the start,
                    # if you want to use this module.
 myfont = pygame.font.SysFont('Comic Sans MS', 22)
 
-textsurface = myfont.render('O menor caminho entre ' + coordInicioX + ', ' + coordInicioY + ' e ' + coordFimX + ', ' + coordFimY + ' passa por ' + str(short[0]) + ' Nós com peso ' + str(short[1]), 1, (255, 0, 255))
+textsurface = myfont.render('O menor caminho entre (' + coordInicioX + ', ' + coordInicioY + ') e (' + coordFimX + ', ' + coordFimY + ') passa por ' + str(short[0]) + ' Nós com peso ' + str(short[1]), 1, (255, 0, 255))
 
 tela.blit(textsurface,(2,500))
 
