@@ -11,12 +11,16 @@
 | 16/0152615  |  João Pedro Elias Moura |
 
 ## Sobre 
-O PD_BellmanFordShortestPath é um software do paradigma de desing de algoritimos Programação Dinâmica, que encontra o menor caminho entre o começo(0, 0) e o fim (19, 19) em um labirinto 20x20 gerado usando o algoritimo de Prim para gerar uma MST. Utilizamos uma evolução do segundo projeto para o desenvolvimento deste. 
+O PD_BellmanFordShortestPath é um software do paradigma de desing de algoritimos Programação Dinâmica, que encontra o menor caminho de acordo com as coordenadas iniciais e finais fornecidas pelo usuário em um labirinto 20x20 gerado usando o algoritimo de Prim para gerar uma MST. Utilizamos uma evolução do segundo projeto para o desenvolvimento deste. 
 
 ## Screenshoots
-![Screenshot from 2021-10-18 20-37-23](https://user-images.githubusercontent.com/42779015/137821156-d6bf81f8-6e0a-474c-b98b-53ba95bee3a7.png)
-![Screenshot from 2021-10-18 20-37-09](https://user-images.githubusercontent.com/42779015/137821163-d10e5a01-b2f6-41f0-8516-44108c0afc17.png)
-![Screenshot from 2021-10-18 20-36-53](https://user-images.githubusercontent.com/42779015/137821169-06254c04-62ab-479d-b923-6e8d5fe9a32b.png)
+![FireShot Capture 028 - Captura de tela de 2021-10-18 21-56-08 png (1366×768) - ](https://user-images.githubusercontent.com/69908186/137828340-25e5c996-5915-4a0c-a6f2-8d53529dd5e1.png)
+![FireShot Capture 031 - Captura de tela de 2021-10-18 22-21-06 png (1366×768) - ](https://user-images.githubusercontent.com/69908186/137828354-ecdddfc7-6fc1-446a-895b-805874b99edd.png)
+![FireShot Capture 027 - Captura de tela de 2021-10-18 21-55-34 png (1366×768) - ](https://user-images.githubusercontent.com/69908186/137828385-e4ae58f8-ac7b-4701-9f81-9e328b98174a.png)
+![FireShot Capture 029 - Captura de tela de 2021-10-18 22-18-43 png (1366×768) - ](https://user-images.githubusercontent.com/69908186/137828405-f8ab1e5b-f468-4a57-8a63-f31ae80bd0d0.png)
+![FireShot Capture 026 - Captura de tela de 2021-10-18 21-56-43 png (1366×768) - ](https://user-images.githubusercontent.com/69908186/137828427-0f057943-fceb-45de-9827-760f59abf494.png)
+![FireShot Capture 030 - Captura de tela de 2021-10-18 22-19-32 png (1366×768) - ](https://user-images.githubusercontent.com/69908186/137828455-27f47175-c150-4b3f-8d50-f2e93069d363.png)
+
 
 ## Instalação 
 **Linguagem**: Python<br>
@@ -24,11 +28,12 @@ O PD_BellmanFordShortestPath é um software do paradigma de desing de algoritimo
 
 ## Uso 
 Ter python3 na maquina
--- Ter o modulo venv("sudo apt install -y python3-venv
+- Ter o modulo venv("sudo apt install -y python3-venv
 ")
--- Clonar o repositorio
--- Ativar o ambiente através de "source env/bin/activate"
--- Executar "tela.py" com o comando "python src/tela.py"
+- Clonar o repositorio
+- Ativar o ambiente através de "source env/bin/activate"
+- Executar "tela.py" com o comando "python src/tela.py"
+- Digitar as coordenadas iniciais e finais de onde deseja que seja mostrado o menor caminho no labirinto
 
 ## Outros 
 ### Referências
