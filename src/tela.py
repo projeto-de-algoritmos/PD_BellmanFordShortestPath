@@ -43,7 +43,7 @@ except:
     print("Erro. Programa não inicializado")
 
 
-WIDTH = 500
+WIDTH = 550
 HEIGHT = 600
 FPS = 30
 
